@@ -8,6 +8,7 @@ python-dateutil
 holidays
 ipynbname
 bs4
+lxml
 # Ensure JupyterLab is installed
 jupyterlab
 
