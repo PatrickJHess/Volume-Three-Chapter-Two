@@ -6,7 +6,7 @@ This chapter introduces essential date manipulation skills for finance professio
 *  **accrued\_interest** that calculates the accrued interest that is included in the transaction of bond.
 
 ***The clean and dirty prices of bonds***  
-Bonds are quoted without accrued interest ('clean') but trade with accrued interest ('dirty').  It's fair to characterize the calculation of accrued interest as messy.  Here we describe the concepts and demonstrate calculations with the `accrued\_interest` function.  The famailiarity with the concepts is sufficient; the details are handled by the function. As you'll see, there are differences in the calculations for different types of securities.  The notable difference is between Treasury securities and corporate and mortgage bonds. The fuctions handle the differences without your intervention.
+Bonds are quoted without accrued interest ('clean') but trade with accrued interest ('dirty').  It's fair to characterize the calculation of accrued interest as messy.  Here we describe the concepts and demonstrate calculations with the `accrued_interest` function.  The famailiarity with the concepts is sufficient; the details are handled by the function. As you'll see, there are differences in the calculations for different types of securities.  The notable difference is between Treasury securities and corporate and mortgage bonds. The fuctions handle the differences without your intervention.
 
 ### ***Bond Prices And Accrued Interest***
 
