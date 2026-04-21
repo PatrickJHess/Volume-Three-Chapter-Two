@@ -32,7 +32,7 @@ project:
       children:
         - title: Chapter Highlights
           file: Chapter_Two_Highlights.md
-        - title: Clean Prices, Dirty Prices Amd Accrued Interest
+        - title: Clean Prices, Dirty Prices And Accrued Interest
           file: Machanics_Of_Bond_Pricces.md
         - title: Manipulating Dates
           file: notebooks/Dealing_With_Dates.ipynb
