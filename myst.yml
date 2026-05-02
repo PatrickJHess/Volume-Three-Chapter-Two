@@ -11,7 +11,8 @@ project:
     Charlottesville, VA.
   authors:
     - name: Financial Python
- 
+
+
 #  exports:
 #    - format: pdf
 #      template: lapreprint-typst
@@ -46,26 +47,14 @@ project:
           file: Chapter_Two_Summary.md
         - title: Imported Functions
           file: imported_functions.md
-    - title: Hub & Other Chapters Of Basic Concepts Of Fixed Income
+    - title: Other Chapters Of The Volume
       children:
-        - title: Hub For Basic Concepts Of Fixed Income
-          url: https://patrickjhess.github.io/Volume-Three-Hub/
-        - title: 'Chapters Two: Accrued Interest'
-          url: https://patrickjhess.github.io/Vol-3-Chap-2/
-        - title: 'Chapters Three: Bond Pay Data'
-          url: https://patrickjhess.github.io/Vol-3-Chap-3/
-        - title: 'Chapters Four: Bootstrapping The Term Structure With Coupon Bonds'
-          url: https://patrickjhess.github.io/Vol-3-Chap-4/
-        - title: 'Chapter Five: Par Yields'
-          url: https://patrickjhess.github.io/Vol-3-Chap-5/
-        - title: 'Chapter Six: Yield To Maturity'
-          url: https://patrickjhess.github.io/Vol-3-Chap-6/
-        - title: 'Chapter Seven: Measuring Interest Rate Risk With Duration'
-          url: https://patrickjhess.github.io/Vol-3-Chap-7/
-        - title: 'Chapter Eight: Convexity And Interest Rate Risk'
-          url: https://patrickjhess.github.io/Vol-3-Chap-8/
-        - title: 'Chapter Nine: The Nelson and Siegel Model Of the Term Structure'
-          url: https://patrickjhess.github.io/Vol-3-Chap-9/
+        - title: 'Chapter One: Bond Pricing and a First Look at the Term Structure Of Interest Rates'
+          url: https://patrickjhess.github.io/Volume-Three-Chapter-One/
+        - title: 'Chapter Three: Bootstrapping Zero Prices With Ordinary Least Squares'
+          url: https://patrickjhess.github.io/Volume-Three-Chapter-Three/
+        - title: 'Chapters Four: Bootstrapping The Term Structure With Nelson and Siegel'
+          url: https://patrickjhess.github.io/Volume-Three-Chapter-Four/
   jupyter:
     binder:
       repo: PatrickJHess/Volume-Three-Chapter-One
@@ -77,6 +66,7 @@ site:
     repository: https://github.com/PatrickJHess/Volume-Three-Chapter-One
     style: static/custom.css
     base_url: /Volume-Three-Chapter-One/ 
+
 
 
 
