@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="http://localhost:3003/sitemap_style.xsl" ?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:3004/sitemap_style.xsl" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://localhost:3003</loc>
+    <loc>http://localhost:3004</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/interacting-with-jupyter-books</loc>
+    <loc>http://localhost:3004/interacting-with-jupyter-books</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/chapter-two-highlights</loc>
+    <loc>http://localhost:3004/chapter-two-highlights</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/machanics-of-bond-pricces</loc>
+    <loc>http://localhost:3004/machanics-of-bond-pricces</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/dealing-with-dates</loc>
+    <loc>http://localhost:3004/dealing-with-dates</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/chapter-two-accrued-interest</loc>
+    <loc>http://localhost:3004/chapter-two-accrued-interest</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/accessing-fedinvest-data</loc>
+    <loc>http://localhost:3004/accessing-fedinvest-data</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/fedinvest-accrued-interest-clean-dirty-prices</loc>
+    <loc>http://localhost:3004/fedinvest-accrued-interest-clean-dirty-prices</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/chapter-two-summary</loc>
+    <loc>http://localhost:3004/chapter-two-summary</loc>
   </url>
   <url>
-    <loc>http://localhost:3003/imported-functions</loc>
+    <loc>http://localhost:3004/imported-functions</loc>
   </url>
 </urlset>
