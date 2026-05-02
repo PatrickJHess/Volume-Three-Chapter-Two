@@ -63,9 +63,9 @@ project:
 site:
   template: book-theme
   options:
-    repository: https://github.com/PatrickJHess/Volume-Three-Chapter-One
+    repository: https://github.com/PatrickJHess/Volume-Three-Chapter-Two
     style: static/custom.css
-    base_url: /Volume-Three-Chapter-One/ 
+    base_url: /Volume-Three-Chapter-Two/ 
 
 
 
