@@ -1,5 +1,5 @@
 # Financial Python
-# Welcome to Basic Concepts Of Fixed Income-The Term Structure Of Interest Rates
+# Basic Concepts Of Fixed Income-The Term Structure Of Interest Rates
 
 ### Chapter Two: Accrued Interest
 

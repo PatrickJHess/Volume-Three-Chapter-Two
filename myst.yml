@@ -43,8 +43,8 @@ project:
           file: notebooks/Accessing_FEDInvest_Data.ipynb
         - title: Calculating Clean and Dirty Prices With FEDInvest Data
           file: notebooks/FEDInvest_accrued_interest_Clean_Dirty_Prices.ipynb
-        - title: Clean Prices, Dirty Prices, and Accrued Interest
-          file: Chapter_Two_Summary.md
+        - title: Chapter Summary
+          file: Chapter_Summary.md
         - title: Imported Functions
           file: imported_functions.md
     - title: Other Chapters Of The Volume
@@ -66,6 +66,7 @@ site:
     repository: https://github.com/PatrickJHess/Volume-Three-Chapter-Two
     style: static/custom.css
     base_url: /Volume-Three-Chapter-Two/ 
+
 
 
 

@@ -1,6 +1,4 @@
-# Clean Prices, Dirty Prices, and Accrued Interest
-
-
+# Chapter Summary
 
 
 <p style="font-family: 'Garamond', serif; font-size: 16px; text-indent: 0.25in; line-height: 1.6;">
