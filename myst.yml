@@ -44,7 +44,7 @@ project:
         - title: Calculating Clean and Dirty Prices With FEDInvest Data
           file: notebooks/FEDInvest_accrued_interest_Clean_Dirty_Prices.ipynb
         - title: Chapter Summary
-          file: Summary.md
+          file: Chapter_Summary.md
         - title: Imported Functions
           file: imported_functions.md
     - title: Other Chapters Of The Volume
