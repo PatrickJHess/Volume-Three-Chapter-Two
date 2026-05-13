@@ -25,4 +25,7 @@
   <url>
     <loc>http://localhost:3000/fedinvest-accrued-interest-clean-dirty-prices</loc>
   </url>
+  <url>
+    <loc>http://localhost:3000/summary</loc>
+  </url>
 </urlset>
