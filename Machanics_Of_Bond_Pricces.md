@@ -1,20 +1,25 @@
-# ***The Mechanics Of Bond Pricing***
+# ⚙️ The Mechanics Of Bond Pricing
+<br>
+This chapter introduces essential date manipulation skills for finance professionals. Throughout this section, we will develop several new custom functions, with the two most important being:
 
-This chapter introduces essential date manipulation skills for finance professionals. Several new functions are developed. The two most important are:
+* **🌐 FEDInvest**: Scrapes the prices of Treasury securities directly from the FEDInvest page of TreasuryDirect.
 
-*  **FEDInvest** that scraps the prices of Treasury securities from the FEDInvest page of Treasury Direct.  
-*  **accrued\_interest** that calculates the accrued interest that is included in the transaction of bond.
+* **🧮 accrued_interest**: Calculates the accrued interest that must be included in a bond transaction.
 
-***The clean and dirty prices of bonds***  
-Bonds are quoted without accrued interest ('clean') but trade with accrued interest ('dirty').  It's fair to characterize the calculation of accrued interest as messy.  Here we describe the concepts and demonstrate calculations with the `accrued_interest` function.  The famailiarity with the concepts is sufficient; the details are handled by the function. As you'll see, there are differences in the calculations for different types of securities.  The notable difference is between Treasury securities and corporate and mortgage bonds. The fuctions handle the differences without your intervention.
+### 🏷️ The Clean and Dirty Prices of Bonds 
+Bonds are quoted without accrued interest ("clean") but actually trade with accrued interest included ("dirty"). It is fair to characterize the manual calculation of accrued interest as a bit messy! Here, we describe the core concepts and demonstrate how to automate these calculations using the accrued_interest function.
 
-### ***Bond Prices And Accrued Interest***
+Familiarity with the underlying concepts is sufficient; the function handles the tedious details for you. As you will see, different types of securities require different calculation conventions. The most notable difference lies between Treasury securities and corporate or mortgage bonds. Our functions seamlessly handle these differences behind the scenes without requiring your manual intervention.
 
-The transaction price (or dirty price) of a coupon bond is the sum of its quoted (or clean) price and accrued interest. Accrued interest is the allocation of a coupon payment between payment dates. It's worth noting that accrued interest determines how taxable interest income is allocated between purchasers and sellers of a bond.
+### 💵 Bond Prices and Accrued Interest
 
-For government notes and bonds, accrued interest is calculated based on the actual number of days from the last coupon payment relative to the total days between payments: the so-called actual/actual rule. For non-government bonds, a 30-day month is assumed for accrued interest calculations: the so-called 30/360 rule.  As shown below there are variations on the rules:
+TThe transaction price (or dirty price) of a coupon bond is the sum of its quoted (clean) price and its accrued interest. Accrued interest is simply the allocation of a coupon payment between payment dates. Notably, this calculation determines how taxable interest income is correctly allocated between the purchaser and the seller of a bond.
 
-| Convention | Security Type | Rule |
+For government notes and bonds, accrued interest is calculated based on the actual number of days from the last coupon payment relative to the total days between payments. This is known as the Actual/Actual rule. For non-government bonds, a standardized 30-day month is assumed, known as the 30/360 rule.
+
+As outlined below, there are several variations of these day-count conventions across the financial markets:
+
+| 📏 Convention | 🏛️ Security Type | 📝 Rule |
 | :---- | :---- | :---- |
 | Actual/Actual | U.S. Treasures | Actual days since the last coupon payment divided by the days between payments times annual coupon divided by the frequency (2 for semi-annual) |
 | Actual/Actual (ISDA) | Swaps | Days since the last payment divided by 365 or 366 adjusting for leap years times the annual coupon |
@@ -23,8 +28,12 @@ For government notes and bonds, accrued interest is calculated based on the actu
 | Actual/365 | Some foreign securities and retail lending | Actual days since the last coupon payment divided by 365 times the annual coupon |
 
 
+### 🗓️ Settlement and Date Manipulation
+Since May 2024, bond trades settle one business day following the trade date (T+1). Accrued interest is always calculated relative to this settlement date.
 
-Since May of 2024 bond trades settle one business day following the trade date.  Accrued interest is calculated relative to the settlement date.   The module `datetime` is part of the standard Python library and manipulates dates.  We use it extensively in this and other chapters.  Two other modules are also needed.: `dateutil` and  the built-in module `calendar`.  The next section of the chapter, the notebook *Dealing With Dates*, illustrates the uses of `datetime`, `dateutil`,  and `calendar`.  A more general discussion is provided in [A Quick Introduction To Manipulating Dates](https://patrickjhess.github.io/Introduction-To-Python-For-Financial-Python/Manipulating_Dates.html#a-quick-introduction-to-manipulating-dates).
+To handle this computationally, the datetime module—part of the standard Python library—is used to manipulate dates. We will use it extensively in this and other chapters. Two additional modules are also required for our calculations: dateutil and the built-in calendar module.
+
+The next section of this chapter, the Jupyter notebook Dealing With Dates, illustrates practical applications of datetime, dateutil, and calendar.  A more general discussion is provided in [A Quick Introduction To Manipulating Dates](https://patrickjhess.github.io/Introduction-To-Python-For-Financial-Python/Manipulating_Dates.html#a-quick-introduction-to-manipulating-dates).
 
 :::{admonition} 💡 ✍️ Test Your Knowledge Of Bond Price Mechanics
 :class: note, dropdown
@@ -43,8 +52,8 @@ A trader looks at a terminal and sees a U.S. Treasury Note quoted at **\$97.25**
 
 **Answers:**
 * The clean price is **\$97.25** and the dirty price is **\$98.10**.
-* **\$0.85** is accrued; an allocation of the coupon due the seller.
-* Because U.S. Treasury securities calculate accrued interest with the Actual/Actual convention and corporates with 30/360, it's unlikely.
+* **\$0.85** The $0.85 difference is the accrued interest; it is the proportional allocation of the upcoming coupon payment that is owed to the seller for the time they held the bond.
+* **No, it is highly unlikely**. U.S. Treasury securities calculate accrued interest using the Actual/Actual convention, whereas corporate bonds use the 30/360 convention. These different day-count rules would result in a slightly different accrued interest calculation.
 
 </div>
 </details>
