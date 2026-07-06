@@ -2,7 +2,7 @@
 
 ## **Chapter Two: Accrued Interest**.
 
-Yhis chapter focuses on the essential financial principles and practical Python programming skills required to convert quoted bond prices into actual transaction prices.
+This chapter focuses on the essential financial principles and practical Python programming skills required to convert quoted bond prices into actual transaction prices.
 
 ### **📈 Financial Concepts**
 * Clean price of a bond

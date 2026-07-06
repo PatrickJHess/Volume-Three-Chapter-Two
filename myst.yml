@@ -1,8 +1,7 @@
 version: 1
 project:
   title: >-
-    Basic Concepts Of Fixed Income-The Term Structure
-    of Interest Rates
+    "🧮 The Mechanics Of Bond Pricing: Clean, Dirty, And Accrued Interest"
   abstract: |
     Calculating Accrued Interest
   github: PatrickJHess/Volume-Three-Chapter-Two
