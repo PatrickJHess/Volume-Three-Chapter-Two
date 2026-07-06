@@ -30,19 +30,19 @@ project:
           file: Interacting With Jupyter Books.md
     - title: 'Basic Concepts of Fixed Income-Term Structure Of Interest Rates: Chapter Two'
       children:
-        - title: Chapter Highlights
+        - title: ✨ Chapter Highlights
           file: Chapter_Two_Highlights.md
-        - title: Clean Prices, Dirty Prices And Accrued Interest
-          file: Machanics_Of_Bond_Pricces.md
-        - title: Manipulating Dates
+        - title: ⚙️ The Mechanics Of Bond Pricing
+          file: Machanics_Of_Bond_Prices.md
+        - title: 📄🖍️ Manipulating Dates
           file: notebooks/Dealing_With_Dates.ipynb
-        - title: Calculating Accrued Interest
+        - title: 💻 💰 Calculating Accrued Interest
           file: notebooks/Chapter_Two_Accrued_Interest.ipynb
-        - title: Treasury Direct Data
+        - title: 📓 Treasury Direct Data 🌐
           file: notebooks/Accessing_FEDInvest_Data.ipynb
-        - title: Calculating Clean and Dirty Prices With FEDInvest Data
+        - title: 🏛️📈 Calculating Clean and Dirty Prices With FEDInvest Data
           file: notebooks/FEDInvest_accrued_interest_Clean_Dirty_Prices.ipynb
-        - title: Chapter Summary
+        - title: 📝 Chapter Summary
           file: Summary.md
         - title: Imported Functions
           file: imported_functions.md
