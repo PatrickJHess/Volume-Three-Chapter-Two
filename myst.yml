@@ -27,7 +27,7 @@ project:
     - title: Getting Started
       children:
         - title: Interacting With Jupyter Books
-          file: Interacting With Jupyter Books.md
+          file: shared_files_finpy/Interacting With Jupyter Books
     - title: 'Basic Concepts of Fixed Income-Term Structure Of Interest Rates: Chapter Two'
       children:
         - title: ✨ Chapter Highlights
@@ -63,7 +63,7 @@ site:
   template: book-theme
   options:
     repository: https://github.com/PatrickJHess/Volume-Three-Chapter-Two
-    style: static/custom.css
+    style: shared_files_finpy/static/custom.css
     base_url: /Volume-Three-Chapter-Two/ 
 
 
