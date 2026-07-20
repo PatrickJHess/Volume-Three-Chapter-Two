@@ -13,9 +13,9 @@ def scheduled_pay_dates(last_date,settlement=None,freq=2):
     if the last_date date is the last day of a month, all preceding coupon payments
     are snapped to the last day of their respective months.
     Args:
-        last_date (datetime.date): The final last_date date of the bond.
+        last_date (datetime.date,timestamp, or datetime64): The last date checked.
             Accepts a date object.
-        settlement (datetime.date, optional): The settlement date (start of analysis).
+        settlement (datetime.date,timestamp, or datetime64): The settlement date (start of analysis).
             Coupons falling before this date are excluded. Defaults to date.today().
         freq (int, optional): The number of coupon payments per year.
             Accepted values:
@@ -25,32 +25,31 @@ def scheduled_pay_dates(last_date,settlement=None,freq=2):
         list[datetime.date]: A list of coupon dates sorted chronologically
         (earliest to latest), ending with the last_date date..
   '''
-  from datetime import datetime,date
-  import calendar
 
-  from IPython.display import Markdown as md, display
 
-  from dateutil.relativedelta import relativedelta
- 
-  # check for datetime object and convert to datetime to date
-  def validate_date(datetime_object):
-      # check for datetime or date
-      if not isinstance(datetime_object, (datetime, date)):
-          raise TypeError("Input must be a datetime or date object.")
-      # convert datetime to date
-      if isinstance(datetime_object, datetime):
-        datetime_object = datetime_object.date()
-      return datetime_object
-      
+
+# convert settlement and last_date to datetime.date
+  def make_date(date_value):
+    if not isinstance(date_value,(datetime,date)):
+      date_value=pd.Timestamp(date_value).date()
+      return date_value
+    # convert timestamps and datetimes to date
+    else:
+      try:
+          return date_value.date()
+      except:        
+         return date_value
+
+
   #Validate the data- last_date, coupon, settlement, freq
   #last_date
-  last_date=validate_date(last_date)
+  last_date=make_date(last_date)
 
   #settlement
   if settlement is None:
       settlement = date.today()
   else:
-      settlement=validate_date(settlement)
+      settlement=make_date(settlement)
   #freq
   if int(freq) not in [1,2,4,12]:
       display(md(f"### ⚠️  your assigned freq {freq} it must be (1, 2, 4, or 12)\
@@ -61,30 +60,26 @@ def scheduled_pay_dates(last_date,settlement=None,freq=2):
   if last_date<=settlement:
     raise ValueError("last_date must be greater than the settlement date")
 
-  # Calculate the number of months between each coupon payment.
+  # calculate the number of months between each coupon payment.
   num_months=int(12/freq)
+ 
+  # timestamps so hat we can use pandas offset
+  last_day=pd.Timestamp(last_date)
+  settlement=pd.Timestamp(settlement)
+  # raw_dates is a pandas datetime index that starts and goes 60 times
+  # need to check for month_end and respect it (MonthsEnd)
+  if last_day.is_month_end:
+    raw_dates = pd.DatetimeIndex([last_day - pd.offsets.MonthEnd(num_months * i) for i in range(360)])
+  else:
+    raw_dates = pd.DatetimeIndex([last_day - pd.DateOffset(months=num_months * i) for i in range(360)])
 
-  #Need to check for month_end
-  is_month_end = last_date.day == calendar.monthrange(last_date.year, last_date.month)[1]
+  # only include dates greater than settlement date
+  valid_dates=raw_dates[raw_dates>settlement]
 
-  dates = []
-  pay_date = last_date
+  # convert timestamps back to date and make the order chronological with splice
+  valid_dates=pd.to_datetime(valid_dates).date
 
-  #Loop backward from the last_date date
-
-  while pay_date > settlement:
-    dates.append(pay_date)
-
-    # Decrement by the frequency
-    pay_date -= relativedelta(months=num_months)
-
-    # Handle Month End Logic
-    if is_month_end:
-      last_day = calendar.monthrange(pay_date.year, pay_date.month)[1]
-      pay_date = date(pay_date.year, pay_date.month, last_day)
-
-  # Return chronologically (sliced backward)
-  return dates[::-1]
+  return valid_dates[::-1]
 ```
 :::
 
@@ -298,9 +293,12 @@ def FEDInvest(price_date):
   """
     Fetches historical security prices from the FedInvest portal.
 
+
     Args:
         price_date (datetime.date): The date for which to retrieve prices.
             Note: Current day is typically available after 1:00 PM ET on business days.
+
+
 
 
     Returns:
@@ -310,29 +308,46 @@ def FEDInvest(price_date):
         tuple: (str, None) if the request fails or no data is found for the date
                 (attempt to fetch current day before 1:00 PM ET).
 
+
     Example:
         >>> from datetime import date
         >>> df, stamp = FEDInvest(date(2025, 3, 17))
   """
-  import requests
-  from io import StringIO
-  import pandas as pd
-  from datetime import datetime, date
-  from dateutil.relativedelta import relativedelta
 
-  # check for date or datetime
-  validate_date(price_date)
 
+  def make_date(date_value):
+    # datetime64 are conerted
+    if not isinstance(date_value,(datetime,date)):
+      try:
+        date_value=pd.Timestamp(date_value).date()
+      except Exception as e: # Catch anything else unexpected
+        print(f"wrong type for settlement or maturity {e}")
+
+
+      date_value=pd.Timestamp(settlement).date()
+    # convert timestamps and datetimes to date
+    else:
+      try:
+        date_value=date_value.date()
+      except:
+        pass
+    return date_value
+
+
+  price_date=make_date(price_date)
   # make share date of prices and settlement date are settlement dates
-  price_date=adjust_bond_pay_dates(price_date)
+  price_date=adjust_bond_pay_dates(price_date)[0]
   if price_date > date.today():
     return "price_date is in the future", None, None
-  
+
+
   settlement_date=price_date+relativedelta(days=1)
   settlement_date=adjust_bond_pay_dates(settlement_date)
 
+
   # URL address of Treasury Direct Select A Date
   url = "https://treasurydirect.gov/GA-FI/FedInvest/selectSecurityPriceDate"
+
 
   # Standard headers to look like a real browser
   headers = {
@@ -340,17 +355,18 @@ def FEDInvest(price_date):
      (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Content-Type": "application/x-www-form-urlencoded"
   }
-
   #  variable names and type identified from inspecting url
   month=str(price_date.month)
   day=str(price_date.day)
   year=str(price_date.year)
+
 
   # payload passed in request post
   payload={'priceDate.month':month,
            'priceDate.day':day,
            'priceDate.year':year,
            "submit": "Show Prices"}
+
 
   # fires off form and returns prices for date
   try:
@@ -359,12 +375,24 @@ def FEDInvest(price_date):
   except requests.exceptions.RequestException as e:
         return f"Connection Error: {e}", None
 
+
   # reads the html
   # Pandas recommends to wrap the response in StingIO to make file like
   tables=pd.read_html(StringIO(response.text),match='CUSIP')
 
+
   # from inspection there is a single table
-  return tables[0], price_date,settlement_date
+  df=tables[0]
+
+
+  df['MATURITY DATE']=pd.to_datetime(df['MATURITY DATE'])
+
+
+  # drop rows equal to or less than settlement date
+  df_filtered=df[df['MATURITY DATE']>pd.to_datetime(settlement_date[0])]
+
+
+  return df_filtered, price_date,settlement_date[0]
 ```
 :::
 
@@ -372,6 +400,7 @@ def FEDInvest(price_date):
 
 ```py
 def clean_FEDInvest(df):
+
 
     import pandas as pd
     # Filters for Standard Securities
@@ -382,10 +411,12 @@ def clean_FEDInvest(df):
     drop_columns=['CUSIP','CALL DATE']
     security_df.drop(columns=drop_columns,inplace=True)
 
+
     # Creates a Time-Series Index
     security_df.set_index('MATURITY DATE',inplace=True)
     security_df.index=pd.to_datetime(security_df.index)
     security_df.sort_index(inplace=True)
+
 
     # Standardizes Financial Terms
     change_column_names={'RATE':'Coupon',
@@ -393,11 +424,13 @@ def clean_FEDInvest(df):
                          'SELL':'Price Bid'}
     security_df.rename(columns=change_column_names,inplace=True)
 
+
     # Formats Numeric Data
     numeric_cols = ['Coupon', 'Price Ask', 'Price Bid', 'YIELD']
     for col in numeric_cols:
         if col in security_df.columns:
             security_df[col] = security_df[col].astype(str).str.replace('%', '', regex=False).astype(float)
+
 
     return security_df
 ```
@@ -411,23 +444,21 @@ def create_workbook(df,sheet_name='sheet1', save_config=None):
     Writes a DataFrame to a specific sheet in an Excel workbook and auto-fits
     column widths for readability.
 
+
     Args:
         sheet_name (str): The name of the sheet to create or replace.
         df (pd.DataFrame): The DataFrame to write.
         save_config (dict, optional): Configuration for saving the file, passed
          Keys: 'volume':folder, 'chapter':'subfolder, 'file_name':file name. Defaults to {}.     
     """
-    import os
-    import re
-    import pandas as pd
-    import openpyxl
-    from openpyxl.utils import get_column_letter
-    from IPython.display import display, Markdown as md
+
+
 
     
     # Fix mutable default argument
     if save_config is None:
         save_config = {}
+
 
     # --- 1. Sanitize Sheet Name ---
     sane_sheet_name = re.sub(r'[\\*?:/\[\]]', '', str(sheet_name))
@@ -435,6 +466,7 @@ def create_workbook(df,sheet_name='sheet1', save_config=None):
         sane_sheet_name = sane_sheet_name[:31]
     if not sane_sheet_name:
         sane_sheet_name = "Sheet1"
+
 
     # --- 2. Get Save Path ---
     file_name = save_config.get('file_name', 'output.xlsx')
@@ -450,11 +482,13 @@ def create_workbook(df,sheet_name='sheet1', save_config=None):
         # Fallback if save_results is not defined
         path_filename = file_name
 
+
     # --- 3. Write and Format ---
     try:
         # Create empty workbook if it doesn't exist to allow 'append' mode
         if not os.path.exists(path_filename):
             pd.DataFrame().to_excel(path_filename, sheet_name="Sheet1")
+
 
         # Write DataFrame
         with pd.ExcelWriter(
@@ -467,6 +501,7 @@ def create_workbook(df,sheet_name='sheet1', save_config=None):
             # FIXED: Using sane_sheet_name instead of sheet_name
             df.to_excel(writer, sheet_name=sane_sheet_name, index=True)
 
+
         # Format with openpyxl
         workbook = openpyxl.load_workbook(path_filename)
         
@@ -477,10 +512,12 @@ def create_workbook(df,sheet_name='sheet1', save_config=None):
             print(f"Error: Sheet '{sane_sheet_name}' not found after writing.")
             return
 
+
         # Auto-fit columns
         for col_idx, column_cells in enumerate(ws.columns, 1):
             max_length = 0
             column_letter = get_column_letter(col_idx)
+
 
             for cell in column_cells:
                 try:
@@ -491,7 +528,9 @@ def create_workbook(df,sheet_name='sheet1', save_config=None):
                 except Exception:
                     pass
 
+
             ws.column_dimensions[column_letter].width = max_length + 2
+
 
         # Delete default Sheet1 if necessary
         if 'Sheet1' in workbook.sheetnames and sane_sheet_name != 'Sheet1' and len(workbook.sheetnames) > 1:
