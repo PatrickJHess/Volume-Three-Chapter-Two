@@ -12,7 +12,7 @@ This chapter focuses on the essential financial principles and practical Python 
 ### **🐍 Python Concepts**
 * NumPy arrays & Pandas DataFrames
 * Accessing and scraping data via a URL
-* Custom modules & the Pandas `.apply()` method
+* financial_quant package & the Pandas `.apply()` method
 * Exporting DataFrames as Excel workbooks
 
 ### 📚 Background & Prerequisites
@@ -41,4 +41,4 @@ This chapter is divided into the following seven distinct sections:
 
 * **📝 Chapter Summary**: A concise recap of the primary financial takeaways and computational results.
 
-* **📦 Imported Functions**: Details the specific custom functions imported from DropBox (module_basic_concepts_fixed_income).
+* **📦 Imported Functions**: describes the functions imported from financial_quant package.
