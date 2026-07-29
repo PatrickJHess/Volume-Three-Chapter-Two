@@ -9,6 +9,7 @@ holidays
 ipynbname
 bs4
 lxml
+html5lib
 # Ensure JupyterLab is installed
 jupyterlab
 
