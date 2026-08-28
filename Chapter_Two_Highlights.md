@@ -11,7 +11,7 @@ This chapter focuses on the essential financial principles and practical Python 
 
 ### **🐍 Python Concepts**
 * NumPy arrays & Pandas DataFrames
-* Accessing and scraping data via a URL
+* Accessing data from a static data repo
 * financial_quant package & the Pandas `.apply()` method
 * Exporting DataFrames as Excel workbooks
 
@@ -29,16 +29,16 @@ This chapter's examples and discussions rely heavily on the Pandas, NumPy, and d
 ### 🗺️ Chapter Outline
 This chapter is divided into the following seven distinct sections:
 
-* **🧮 Clean Prices, Dirty Prices, and Accrued Interest**: Demonstrates the core financial mechanics and concepts behind calculating accrued interest.
+🧮 Clean Prices, Dirty Prices, and Accrued Interest: Demonstrates the core financial mechanics and concepts behind calculating accrued interest.
 
-* **🗓️ Manipulating Dates (Jupyter Notebook)**: Provides practical, code-based examples of utilizing Python's datetime library.
+🗓️ Manipulating Dates (Jupyter Notebook): Provides practical, code-based examples of utilizing Python's datetime library.
 
-* **💻 Calculating Accrued Interest (Jupyter Notebook)**: Integrates NumPy, Pandas, and datetime to compute interest programmatically.
+💻 Calculating Accrued Interest (Jupyter Notebook): Integrates NumPy, Pandas, and datetime to compute interest programmatically.
 
-* **🌐 Treasury Direct Data (Jupyter Notebook)**: Uses Pandas to scrape live data from the FEDInvest page, organizing it into a standardized DataFrame.
+🌐 Treasury Direct Data (Jupyter Notebook): Accesses data from the Static_Data_Repo previously downloaded from the FEDInvest website.
 
-* **📊 Calculating Clean and Dirty Prices With FEDInvest Data (Jupyter Notebook)**: Expands the scraped FEDInvest DataFrame by calculating and appending accrued interest and dirty prices.
+📊 Calculating Clean and Dirty Prices with FEDInvest Data (Jupyter Notebook): Expands the scraped FEDInvest DataFrame by calculating and appending accrued interest and dirty prices.
 
-* **📝 Chapter Summary**: A concise recap of the primary financial takeaways and computational results.
+📝 Chapter Summary: Provides a concise recap of the primary financial takeaways and computational results.
 
-* **📦 Imported Functions**: describes the functions imported from financial_quant package.
+📦 Imported Functions: Describes the functions imported from the financial_quant package.
