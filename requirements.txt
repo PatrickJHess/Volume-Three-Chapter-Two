@@ -10,6 +10,7 @@ ipynbname
 bs4
 lxml
 html5lib
+pyarrow>=12.0.0
 # Ensure JupyterLab is installed
 jupyterlab
 
